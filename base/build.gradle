@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: '../gradle/config.gradle'
+apply from: '../gradle/deps.gradle'
+
+android {
+    compileSdkVersion buidlConfig.compile
+
+    compileOptions {
+        sourceCompatibility javaCompatibility.sourceCompatibility
+        targetCompatibility javaCompatibility.targetCompatibility
+    }
+
+    defaultConfig {
+        //sdks
+        minSdkVersion buidlConfig.min
+        targetSdkVersion buidlConfig.target
+
+        //strip other than english resources
+        resConfigs "en"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+    }
+
+    packagingOptions packageExcludes
+    lintOptions lintOption
+    aaptOptions aaptOption
+    dexOptions dexOption
+    buildToolsVersion '27.0.3'
+}
+
+dependencies {
+    implementation(otherLib.timber, excludeGrp)
+    implementation ide.kotlin
+    implementation supportLib.appCompat
+    implementation supportLib.supportv4
+    implementation supportLib.design
+    implementation supportLib.recyclerView
+    implementation rxLib.rxJava
+    implementation rxLib.rxAndroid
+
+    //Butter knife
+    implementation butterKnifeLib.butterKnife
+    annotationProcessor butterKnifeLib.annotationProcessor
+    kapt butterKnifeLib.annotationProcessor
+    implementation project(':utils')
+
+}
+repositories {
+    mavenCentral()
+}

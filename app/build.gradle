@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: '../gradle/config.gradle'
+apply from: '../gradle/deps.gradle'
+
+
+android {
+    compileSdkVersion buidlConfig.compile
+    defaultConfig {
+        applicationId buidlConfig.applicationId
+        minSdkVersion buidlConfig.min
+        targetSdkVersion buidlConfig.target
+        versionCode versionConfig.versionCode
+        versionName versionConfig.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
+        }
+        debug {
+            buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
+        }
+    }
+
+    kapt {
+        generateStubs = true
+    }
+}
+
+// to know about api/implemention visit https://stackoverflow.com/a/44493811/5255006
+dependencies {
+    // adding base project
+    api project(':base')
+
+    api ide.kotlin
+
+    // support libraries and design layouts
+    api supportLib.appCompat
+    api supportLib.supportv4
+    api supportLib.recyclerView
+    api ide.constrainlayout
+
+    // testing libraries
+    testImplementation testLib.junit
+    testImplementation testLib.runner
+    testImplementation testLib.esspresso
+
+    // architecture components and room
+    api archComponent.viewModel
+    api archComponent.room
+    api archComponent.roomRx
+    kapt archComponent.roomAnnotation
+    api archComponent.roomRx
+
+    // retrofit, gson
+    api retrofitLib.retrofit
+    api retrofitLib.gsonPlugin
+    api retrofitLib.rxPlugin
+    api otherLib.gson
+
+    debugApi otherLib.stetho
+}

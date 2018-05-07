@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="switch_gray">#E9E9E9</color>
+    <color name="switch_accent">#FFB3D4</color>
+</resources>

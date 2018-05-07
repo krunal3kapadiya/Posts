@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.common.utils">
+
+    <application>
+        <activity
+            android:name="com.common.utils.WebViewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+    </application>
+
+</manifest>
