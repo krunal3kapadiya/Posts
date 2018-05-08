@@ -56,13 +56,18 @@ dependencies {
     api archComponent.room
     api archComponent.roomRx
     kapt archComponent.roomAnnotation
-    api archComponent.roomRx
 
     // retrofit, gson
     api retrofitLib.retrofit
     api retrofitLib.gsonPlugin
     api retrofitLib.rxPlugin
     api otherLib.gson
+
+    api rxLib.rxAndroid
+
+    // dagger lib
+    api daggerLib.dagger
+    kapt daggerLib.daggerProcessor
 
     debugApi otherLib.stetho
 }

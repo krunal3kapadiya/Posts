@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Posts</string>
+    <string name="total_comments">Total Comments %d</string>
+    <string name="comments">Comments</string>
 </resources>
