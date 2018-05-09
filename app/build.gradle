@@ -48,8 +48,8 @@ dependencies {
 
     // testing libraries
     testImplementation testLib.junit
-    testImplementation testLib.runner
-    testImplementation testLib.esspresso
+    androidTestImplementation testLib.runner
+    androidTestImplementation testLib.esspresso
 
     // architecture components and room
     api archComponent.viewModel

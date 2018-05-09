@@ -4,8 +4,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.common.base.BaseActivity
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.krunal3kapadiya.posts.Injection
 import com.krunal3kapadiya.posts.R
 import com.krunal3kapadiya.posts.common.models.Comments
@@ -14,13 +12,13 @@ import com.krunal3kapadiya.posts.common.models.Posts
 import com.krunal3kapadiya.posts.common.models.Users
 import com.krunal3kapadiya.posts.detail.DetailActivity
 import com.krunal3kapadiya.posts.list.viewmodel.ListViewModel
+import com.krunal3kapadiya.posts.network.NetworkModule
+import com.krunal3kapadiya.posts.network.PostApi
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_list.*
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.io.Reader
 
 /**
  * first activity of the app
@@ -42,24 +40,41 @@ class ListActivity : BaseActivity(), ListAdapter.onListItemClick {
         val viewModelFactory = Injection.provideListViewModel(this)
         val listViewModel = ViewModelProviders.of(this, viewModelFactory).get(ListViewModel::class.java)
 
-        val listPosts = getPostList()
-        disposable.add(listViewModel.addOrUpdatePosts(listPosts)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-        )
+        // post api object
+        val postApi: PostApi = NetworkModule.providePostsApi()
 
-        val listComments = getCommentsList()
-        disposable.add(listViewModel.addOrUpdateComments(listComments)
-                .subscribeOn(Schedulers.io())
+        // post observer
+        val postObservable: Observable<List<Posts>> = postApi.getPosts()
+        postObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe())
+                .subscribe({
+                    disposable.add(listViewModel.addOrUpdatePosts(it)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe())
+                })
 
-        val listUsers = getUsersList()
-        disposable.add(listViewModel.addOrUpdateUsers(listUsers)
-                .subscribeOn(Schedulers.io())
+        // user observer
+        val userObservable: Observable<List<Users>> = postApi.getUsers()
+        userObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe())
+                .subscribe({
+                    disposable.add(listViewModel.addOrUpdateUsers(it)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe())
+                })
+
+        // comment observer
+        val commentObservable: Observable<List<Comments>> = postApi.getComments()
+        commentObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    disposable.add(listViewModel.addOrUpdateComments(it)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe())
+                })
 
 
         //get the total number of comments(in list)
@@ -89,51 +104,5 @@ class ListActivity : BaseActivity(), ListAdapter.onListItemClick {
     override fun onDestroy() {
         super.onDestroy()
         disposable.clear()
-    }
-
-    // TODO remove below 3 methods
-    private fun getPostList(): List<Posts> {
-        val builder = StringBuilder()
-        val data = resources.openRawResource(R.raw.posts)
-        val reader = BufferedReader(InputStreamReader(data) as Reader?)
-        var line: String? = null
-        do {
-            line = reader.readLine()
-            line?.let { builder.append(line) }
-        } while (line != null)
-        //Parse resource into key/values
-        val rawJson = builder.toString()
-        val listType = object : TypeToken<List<Posts>>() {}.type
-        return Gson().fromJson(rawJson, listType)
-    }
-
-    private fun getUsersList(): List<Users> {
-        val builder = StringBuilder()
-        val data = resources.openRawResource(R.raw.users)
-        val reader = BufferedReader(InputStreamReader(data) as Reader?)
-        var line: String? = null
-        do {
-            line = reader.readLine()
-            line?.let { builder.append(line) }
-        } while (line != null)
-        //Parse resource into key/values
-        val rawJson = builder.toString()
-        val listType = object : TypeToken<List<Users>>() {}.type
-        return Gson().fromJson(rawJson, listType)
-    }
-
-    private fun getCommentsList(): List<Comments> {
-        val builder = StringBuilder()
-        val data = resources.openRawResource(R.raw.comments)
-        val reader = BufferedReader(InputStreamReader(data) as Reader?)
-        var line: String? = null
-        do {
-            line = reader.readLine()
-            line?.let { builder.append(line) }
-        } while (line != null)
-        //Parse resource into key/values
-        val rawJson = builder.toString()
-        val listType = object : TypeToken<List<Comments>>() {}.type
-        return Gson().fromJson(rawJson, listType)
     }
 }
