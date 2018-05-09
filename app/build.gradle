@@ -37,6 +37,7 @@ android {
 dependencies {
     // adding base project
     api project(':base')
+    api project(':utils')
 
     api ide.kotlin
 
@@ -44,25 +45,31 @@ dependencies {
     api supportLib.appCompat
     api supportLib.supportv4
     api supportLib.recyclerView
+    api supportLib.design
     api ide.constrainlayout
 
     // testing libraries
     testImplementation testLib.junit
-    testImplementation testLib.runner
-    testImplementation testLib.esspresso
+    androidTestImplementation testLib.runner
+    androidTestImplementation testLib.esspresso
 
     // architecture components and room
     api archComponent.viewModel
     api archComponent.room
     api archComponent.roomRx
     kapt archComponent.roomAnnotation
-    api archComponent.roomRx
 
     // retrofit, gson
     api retrofitLib.retrofit
     api retrofitLib.gsonPlugin
     api retrofitLib.rxPlugin
     api otherLib.gson
+
+    api rxLib.rxAndroid
+
+    // dagger lib
+    api daggerLib.dagger
+    kapt daggerLib.daggerProcessor
 
     debugApi otherLib.stetho
 }
