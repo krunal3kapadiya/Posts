@@ -2,4 +2,7 @@
     <string name="app_name">Posts</string>
     <string name="total_comments">Total Comments %d</string>
     <string name="comments">Comments</string>
+    <string name="error_string">Something went wrong</string>
+    <string name="text_go_to_settings">Go to settings</string>
+    <string name="text_connect_internet">Please connect to Internet</string>
 </resources>
