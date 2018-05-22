@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.common.base.BaseActivity
 import com.krunal3kapadiya.posts.Injection
 import com.krunal3kapadiya.posts.R
 import com.krunal3kapadiya.posts.common.models.Comments
@@ -15,7 +15,7 @@ import com.krunal3kapadiya.posts.detail.comments.CommentsAdapter
 import com.krunal3kapadiya.posts.detail.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class DetailActivity : BaseActivity() {
+class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val ARG_POST_DETAIL = "postsdata"
