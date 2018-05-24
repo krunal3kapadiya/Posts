@@ -13,7 +13,12 @@ An app using Android Architecture pattern.
 
 ## How to contribute?
 - Check out contribution :point_right: [Guidelines](./CONTRIBUTING.md)  
-   
+
+# Questions
+
+Tweet me at: 
+[![Twitter URL](https://img.shields.io/badge/Twitter-@krunal3kapadiya-blue.svg?style=for-the-badge)](https://twitter.com/krunal3kapadiya)
+
 ## Licence
     Copyright 2018 Krunal Kapadiya
 
