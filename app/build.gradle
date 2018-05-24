@@ -35,9 +35,6 @@ android {
 
 // to know about api/implemention visit https://stackoverflow.com/a/44493811/5255006
 dependencies {
-    // adding base project
-    api project(':base')
-    api project(':utils')
 
     api ide.kotlin
 
