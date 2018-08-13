@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
-import com.krunal3kapadiya.posts.R
 import com.krunal3kapadiya.posts.common.dao.CommentsDao
 import com.krunal3kapadiya.posts.common.dao.PostsDao
 import com.krunal3kapadiya.posts.common.dao.UsersDao
@@ -60,7 +59,7 @@ class ListViewModel(private val postData: PostsDao, private val usersDao: UsersD
     fun getListData(): LiveData<List<PostUserComments>> {
         disposable.addAll(Completable.create { e ->
             postUserCommentsList.addSource(postData.getListData(), { postUserComments ->
-                if (postUserCommentsList.getValue() != null) {
+                if (postUserCommentsList.value != null) {
                     val listData: List<PostUserComments> = postUserCommentsList.getValue()!!
                     (listData as ArrayList).clear()
                     listData.addAll((postUserComments as ArrayList))
