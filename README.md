@@ -11,6 +11,10 @@ An app using Android Architecture pattern.
 - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 
+## App working 👇 
+
+![](/posts.gif)
+
 ## How to contribute?
 - Check out contribution :point_right: [Guidelines](./CONTRIBUTING.md)  
 
