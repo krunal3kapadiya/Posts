@@ -1,4 +1,4 @@
-# Posts
+# Posts [![Build Status](https://travis-ci.org/krunal3kapadiya/Posts.svg?branch=master)](https://travis-ci.org/krunal3kapadiya/Posts)
 An app using Android Architecture pattern. 
 
 ## Used Libraries
