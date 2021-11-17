@@ -9,9 +9,16 @@ import com.krunal3kapadiya.posts.R
 import com.krunal3kapadiya.posts.common.models.Comments
 import kotlinx.android.synthetic.main.row_comments.view.*
 
-class CommentsAdapter(val context: Context, private val comments: List<Comments>) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
+class CommentsAdapter(
+        val context: Context,
+        private val comments: List<Comments>
+) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.row_comments, parent, false))
+        return ViewHolder(LayoutInflater.from(parent?.context).inflate(
+                R.layout.row_comments,
+                parent,
+                false
+        ))
     }
 
     override fun getItemCount(): Int {
@@ -19,7 +26,7 @@ class CommentsAdapter(val context: Context, private val comments: List<Comments>
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder?.bind(comments.get(position))
+        holder?.bind(comments[position])
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
